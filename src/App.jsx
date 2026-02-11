@@ -521,6 +521,7 @@ export default function App() {
       for (const k of r.keys) { try { const d = await window.storage.get(k); if (d) { const p = JSON.parse(d.value); items.push({ key: k, event: p.eventName, version: p.versionName, date: p.savedAt }); } } catch (e) {} }
       items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
       setSaved(items);
+      if (items.length > 0 && !expandedEvt) setExpandedEvt("__all__");
     } catch (e) { setSaved([]); }
   };
 
@@ -849,10 +850,10 @@ export default function App() {
         {Object.keys(savedByEvent).length > 0 && (
           <>
             <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12, marginTop: -12 }}>
-              <button onClick={() => setExpandedEvt(expandedEvt === "__all__" ? null : "__all__")}
+              <button onClick={() => setExpandedEvt(expandedEvt != null ? null : "__all__")}
                 style={{ display: "flex", alignItems: "center", gap: 5, background: "none", border: "none", cursor: "pointer", color: C.mutedDk, fontSize: 13, padding: "4px 0" }}>
                 📂 Saved Events ({saved.length})
-                {expandedEvt === "__all__" ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                {expandedEvt != null ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
               </button>
             </div>
             {expandedEvt != null && (
