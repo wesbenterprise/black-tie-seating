@@ -855,7 +855,7 @@ export default function App() {
                 {expandedEvt === "__all__" ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
               </button>
             </div>
-            {expandedEvt === "__all__" && (
+            {expandedEvt != null && (
               <div style={{ marginBottom: 24, animation: "fadeSlide 0.2s ease-out" }}>
                 {Object.entries(savedByEvent).map(([evt, versions]) => (
                   <div key={evt} style={{ marginBottom: 8, border: `1px solid ${C.border}`, borderRadius: 8, background: C.cardBg, overflow: "hidden" }}>
